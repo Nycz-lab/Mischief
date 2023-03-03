@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class camScript : MonoBehaviour
 {
-    private Animator characterAnim;
+    public Transform headBone;
     public float smoothing = 5.0f;
 
 
@@ -17,12 +17,11 @@ public class camScript : MonoBehaviour
     void Awake()
     {
         
-        characterAnim = transform.parent.GetComponentInChildren<Animator>();
     }
 
     void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, characterAnim.GetBoneTransform(HumanBodyBones.Neck).position, smoothing);
+        transform.position = Vector3.Lerp(transform.position, headBone.position, smoothing * Time.deltaTime);
 
 
         // TODO track rotation
