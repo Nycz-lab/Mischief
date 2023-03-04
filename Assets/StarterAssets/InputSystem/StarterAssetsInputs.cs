@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool interact;
 		public bool dropItem;
+		public int scrollIdx = 0;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -54,6 +55,18 @@ namespace StarterAssets
 		public void OnDropItem(InputValue value)
         {
 			DropItemInput(value.isPressed);
+        }
+
+		public void OnScroll(InputValue value)
+        {
+			if(value.Get<Vector2>().y <= -120)
+            {
+				if (scrollIdx <= 0) return;
+				scrollIdx-=1;
+            }else if(value.Get<Vector2>().y >= 120)
+            {
+				scrollIdx+=1;
+            }
         }
 #endif
 

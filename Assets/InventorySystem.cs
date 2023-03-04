@@ -39,7 +39,6 @@ public class InventorySystem : MonoBehaviour
         if(activeItem is Equipable)
         {
             activeObj.SetActive(true);
-            Debug.Log("kek");
         }
 
     }
@@ -92,7 +91,18 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        inventory[selectionIndex].GetComponent<Item>().drop(transform.position);
+        Item item = inventory[selectionIndex].GetComponent<Item>();
+
+        if (item is Equipable)
+        {
+            Equipable equip = inventory[selectionIndex].GetComponent<Equipable>();
+            equip.drop(transform.position);
+        }
+        else
+        {
+            item.drop(transform.position);
+        }
+        
         inventory.RemoveAt(selectionIndex);
 
 
