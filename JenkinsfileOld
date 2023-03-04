@@ -1,0 +1,39 @@
+pipeline {
+  agent any
+
+  stages {
+
+    environment{
+        UNITY_PATH="D:\\programs\\unityEditor\\2021.3.19f1\\Edito\\Unity.exe"
+        deployGate_token="${deploy_gate_token}"
+        deployGate_upload_url="${deploy_gate_upload_url}"
+        app_mode="mono"  // mono or IL2CPP
+        repo="${build_repo}"
+        branch="${json_branch}"
+        pr_id="${json_number}"
+        workingDir="/Users/${machine_user_name}/.jenkins/workspace/${json_branch}"
+    }
+
+    stage('Build') {
+      steps {
+        echo "build"
+        echo "sheesh"
+        // Your build steps go here
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo "test"
+        // Your test steps go here
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo "deploy"
+        // Your deploy steps go here
+      }
+    }
+  }
+}
