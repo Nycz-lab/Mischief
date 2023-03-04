@@ -5,6 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "build"
+        echo "kek"
         // Your build steps go here
       }
     }
