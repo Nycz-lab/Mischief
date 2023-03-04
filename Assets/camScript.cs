@@ -7,7 +7,7 @@ public class camScript : MonoBehaviour
 {
     public Transform headBone;
     public float smoothing = 5.0f;
-    public float interactionDistance = 2.0f;
+    
 
 
     // Start is called before the first frame update
@@ -36,32 +36,8 @@ public class camScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkLookingAtItem();
+        
     }
 
-    private void checkLookingAtItem()
-    {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance))
-        {
-            Item item = hit.collider.GetComponent<Item>();
-
-            if(item != null)
-            {
-                Debug.Log("Looking at Item " + item.itemName);
-                item.showInfo();
-            }
-            else
-            {
-                // TODO this works for now but change this later
-                GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = "";
-            }
-
-        }
-        else
-        {
-            // TODO this works for now but change this later
-            GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = "";
-        }
-    }
+    
 }
