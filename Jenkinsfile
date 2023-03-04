@@ -5,7 +5,6 @@ pipeline {
     stage('Build') {
       steps {
         echo "build"
-        echo "Marko"
         // Your build steps go here
       }
     }
