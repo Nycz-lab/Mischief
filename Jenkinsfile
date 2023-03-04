@@ -5,7 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "build"
-        echo "kek"
+        echo "Marko"
         // Your build steps go here
       }
     }
