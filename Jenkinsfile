@@ -5,6 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "build"
+        echo env.REPOSITORY_URL
         // Your build steps go here
       }
     }
