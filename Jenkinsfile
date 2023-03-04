@@ -5,6 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "build"
+        echo "sheesh"
         // Your build steps go here
       }
     }
