@@ -65,9 +65,13 @@ public abstract class Equipable : Item
         inInventory = true;
 
         GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
         transform.position = equipSocket.position;
         gameObject.SetActive(false);
         transform.SetParent(equipSocket);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
 }

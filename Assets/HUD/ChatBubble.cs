@@ -15,6 +15,8 @@ public class ChatBubble : MonoBehaviour
 
         chatBubbleTransform.GetComponent<ChatBubble>().Setup(Text);
 
+        Destroy(chatBubbleTransform.gameObject, 6.0f);
+
         return chatBubbleTransform;
     }
 

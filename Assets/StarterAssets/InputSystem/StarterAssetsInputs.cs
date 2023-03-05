@@ -16,6 +16,9 @@ namespace StarterAssets
 		public bool dropItem;
 		public int scrollIdx = 0;
 
+		public bool primary;
+		public bool secondary;
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -72,6 +75,16 @@ namespace StarterAssets
 				scrollIdx+=1;
             }
         }
+
+		public void OnPrimary(InputValue value)
+        {
+			primary = value.isPressed;
+        }
+
+		public void OnSecondary(InputValue value)
+		{
+			secondary = value.isPressed;
+		}
 #endif
 
 

@@ -11,7 +11,8 @@ public abstract class Item : MonoBehaviour
     public Sprite itemIcon;
     public int maxStack;
 
-    private Transform infoBubble;
+    protected Transform infoBubble;
+
     
 
     //public string itemName { get; set; }
@@ -21,15 +22,25 @@ public abstract class Item : MonoBehaviour
         this.itemName = transform.name;
     }
 
-    public virtual void Use()
+
+    public virtual void UsePrimary()
     { 
         // Code for using the item
+
+    }
+
+    public virtual void UseSecondary()
+    {
+        // Code for using the item
+
     }
 
     public virtual void showInfo()
     {
 
-        if(infoBubble == null)
+        gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 30);
+
+        if (infoBubble == null)
         {
             infoBubble = ChatBubble.Create(transform.transform, Camera.main.transform.forward * -1, this.itemName);
         }
@@ -43,8 +54,9 @@ public abstract class Item : MonoBehaviour
 
     public virtual void hideInfo()
     {
+        gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 0);
 
-        if(infoBubble != null)
+        if (infoBubble != null)
         {
             Destroy(infoBubble.gameObject);
         }

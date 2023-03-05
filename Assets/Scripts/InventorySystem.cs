@@ -32,7 +32,33 @@ public class InventorySystem : MonoBehaviour
         checkLookingAtItem();
         checkDropItem();
         processEquip();
+        useItem();
         //Debug.Log(_input.scrollIdx);
+    }
+
+    private void useItem()
+    {
+        if (inventory.Count <= 0)
+        {
+            _input.primary = false;
+            _input.secondary = false;
+        }
+        if (!_input.primary && !_input.secondary) return;
+
+        if (_input.primary)
+        {
+            inventory[selectionIndex].GetComponent<Item>().UsePrimary();
+        }
+        else if (_input.secondary)
+        {
+            inventory[selectionIndex].GetComponent<Item>().UseSecondary();
+        }
+        
+        
+        _input.primary = false;
+        _input.secondary = false;
+
+
     }
 
     private void processEquip() // TODO change this wasted resources
