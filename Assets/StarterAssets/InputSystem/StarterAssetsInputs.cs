@@ -12,6 +12,12 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool interact;
+		public bool dropItem;
+		public int scrollIdx = 0;
+
+		public bool primary;
+		public bool secondary;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -43,6 +49,42 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnInteract(InputValue value)
+        {
+			InteractInput(value.isPressed);
+        }
+
+		public void OnDropItem(InputValue value)
+        {
+			DropItemInput(value.isPressed);
+        }
+
+		public void OnScroll(InputValue value)
+        {
+			//Debug.Log(value.Get<Vector2>());
+
+			Vector2 input = value.Get<Vector2>();
+
+			if (input.y <= -120 || input.x == -1)
+            {
+				if (scrollIdx <= 0) return;
+				scrollIdx-=1;
+            }else if(input.y >= 120 || input.x == 1)
+            {
+				scrollIdx+=1;
+            }
+        }
+
+		public void OnPrimary(InputValue value)
+        {
+			primary = value.isPressed;
+        }
+
+		public void OnSecondary(InputValue value)
+		{
+			secondary = value.isPressed;
+		}
 #endif
 
 
@@ -65,7 +107,17 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-		
+
+		public void InteractInput(bool newInteractState)
+		{
+			interact = newInteractState;
+		}
+
+		public void DropItemInput(bool newDropItemState)
+		{
+			dropItem = newDropItemState;
+		}
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
