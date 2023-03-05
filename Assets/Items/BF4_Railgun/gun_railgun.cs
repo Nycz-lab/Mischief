@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gun_railgun : Equipable
+public class gun_railgun : Weapon
 {
 
-    public float shootRange = 50f;
-    public int dmgPoints = 20;
+    public override void Awake()
+    {
+        base.Awake();
+
+        dmgPoints = 20f;
+        dmgRange = 50f;
+
+    }
     public override void showInfo()
     {
 
@@ -42,7 +48,7 @@ public class gun_railgun : Equipable
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootRange))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, dmgRange))
         {
             simpleTarget target;
             if(hit.collider.gameObject.TryGetComponent<simpleTarget>(out target))

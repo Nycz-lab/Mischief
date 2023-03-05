@@ -38,13 +38,18 @@ public class InventorySystem : MonoBehaviour
 
     private void useItem()
     {
-        if (inventory.Count <= 0)
+        if (inventory.Count <= 0)   // if there are no items we need to reset the inputs
         {
             _input.primary = false;
             _input.secondary = false;
         }
         if (!_input.primary && !_input.secondary) return;
 
+        /* Important these are only for single click items
+         * In order to capture full automatic weapons for example we need to add
+         * a pass through listener in the input package
+         * TODO
+        */
         if (_input.primary)
         {
             inventory[selectionIndex].GetComponent<Item>().UsePrimary();

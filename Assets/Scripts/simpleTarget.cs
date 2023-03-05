@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class simpleTarget : MonoBehaviour
 {
-    public int hitPoints = 100;
+    public float hitPoints = 100.0f;
 
-    public void damage(int dmgPoints)
+    public void damage(float dmgPoints)
     {
         hitPoints -= dmgPoints;
         if(hitPoints <= 0)
