@@ -17,4 +17,5 @@ public class GameAssets : MonoBehaviour
 
     public string[] authors = { "Nycz", "Revengr" };
     public Transform pfChatBubble;
+    public GameObject pfWeaponImpactMetalParticles;
 }

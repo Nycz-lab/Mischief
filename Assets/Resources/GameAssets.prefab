@@ -48,3 +48,4 @@ MonoBehaviour:
   - Nycz
   - Revengr
   pfChatBubble: {fileID: 7556517018012526589, guid: 0ccd7b6f1dc5a0a469651e706634127c, type: 3}
+  pfWeaponImpactMetalParticles: {fileID: 830157331589063712, guid: a715f9feb21f50a4fa7c20a12df33a9b, type: 3}

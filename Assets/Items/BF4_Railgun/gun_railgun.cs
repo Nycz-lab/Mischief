@@ -52,5 +52,7 @@ public class gun_railgun : Equipable
         }
 
         GameObject.Find("Railgun/muzzle").GetComponent<ParticleSystem>().Play();
+        GameObject impact = Instantiate(GameAssets.i.pfWeaponImpactMetalParticles, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(impact, 6.0f);
     }
 }
