@@ -10,11 +10,15 @@ public class InventorySystem : MonoBehaviour
 
     public GameObject equipSocket;
 
-    List<GameObject> inventory = new List<GameObject>();
-    int selectionIndex = 0;
+    public List<GameObject> inventory = new List<GameObject>();
+    public int selectionIndex = 0;
 
-    public float interactionDistance = 2.0f;
+    public float interactionDistance = 2.0f;    // distance for interacting
     private Item focussedItem;
+
+    public int maxItems = 30;
+
+    public GameObject activeObj;
 
     // Start is called before the first frame update
     void Start()
@@ -28,17 +32,34 @@ public class InventorySystem : MonoBehaviour
         checkLookingAtItem();
         checkDropItem();
         processEquip();
+        //Debug.Log(_input.scrollIdx);
     }
 
     private void processEquip() // TODO change this wasted resources
     {
+        if (inventory.Count > 0)    // this makes sure we dont access out of bounds in the inventory
+        {
+            selectionIndex = Mathf.Clamp(_input.scrollIdx, 0, inventory.Count - 1);
+            _input.scrollIdx = selectionIndex;
+        }
+
         if (inventory.Count <= 0) return;
-        GameObject activeObj = inventory[selectionIndex];
-        Debug.Log(activeObj);
+
+        if(inventory[selectionIndex] != activeObj && activeObj != null)
+        {
+            if (inventory.IndexOf(activeObj) != -1)
+            {
+                activeObj.SetActive(false); // if the previous Equipment is still part of the Inventory then we want to hide it
+            }
+            Debug.Log("changed equp");
+        }
+        activeObj = inventory[selectionIndex];
+
         Item activeItem = activeObj.GetComponent<Item>();
+        
         if(activeItem is Equipable)
         {
-            activeObj.SetActive(true);
+            activeObj.SetActive(true);  // Equipment is visible
         }
 
     }
@@ -46,14 +67,14 @@ public class InventorySystem : MonoBehaviour
     private void checkLookingAtItem()
     {
         RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance))
+        
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance))
         {
             focussedItem = hit.collider.GetComponent<Item>();
 
             if (focussedItem != null)
             {
-                Debug.Log("Looking at Item " + focussedItem.itemName);
+                //Debug.Log("Looking at Item " + focussedItem.itemName);
                 focussedItem.showInfo();
 
                 if (_input.interact)
@@ -68,6 +89,7 @@ public class InventorySystem : MonoBehaviour
                     {
                         focussedItem.pickUp();
                     }
+                    
 
                     _input.interact = false;
                 }
@@ -93,15 +115,7 @@ public class InventorySystem : MonoBehaviour
 
         Item item = inventory[selectionIndex].GetComponent<Item>();
 
-        if (item is Equipable)
-        {
-            Equipable equip = inventory[selectionIndex].GetComponent<Equipable>();
-            equip.drop(transform.position);
-        }
-        else
-        {
-            item.drop(transform.position);
-        }
+        item.drop(transform.position);
         
         inventory.RemoveAt(selectionIndex);
 

@@ -259,6 +259,17 @@
                 },
                 {
                     "name": "",
+                    "id": "07b07358-2865-4ffa-8b45-87d11bd8ac26",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7a0a547e-5b88-401b-8c43-70a477bb9b60",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -270,11 +281,33 @@
                 },
                 {
                     "name": "",
+                    "id": "c104f04e-5000-4533-aeac-9acd81fb8a02",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e0d4c275-1902-45c9-9127-6debf018f5aa",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e95f22f-4711-4711-a0b5-1e47caf839af",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false

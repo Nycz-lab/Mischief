@@ -59,11 +59,15 @@ namespace StarterAssets
 
 		public void OnScroll(InputValue value)
         {
-			if(value.Get<Vector2>().y <= -120)
+			//Debug.Log(value.Get<Vector2>());
+
+			Vector2 input = value.Get<Vector2>();
+
+			if (input.y <= -120 || input.x == -1)
             {
 				if (scrollIdx <= 0) return;
 				scrollIdx-=1;
-            }else if(value.Get<Vector2>().y >= 120)
+            }else if(input.y >= 120 || input.x == 1)
             {
 				scrollIdx+=1;
             }

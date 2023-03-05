@@ -10,6 +10,8 @@ public abstract class Item : MonoBehaviour
     public int itemPrice;
     public Sprite itemIcon;
     public int maxStack;
+
+    private Transform infoBubble;
     
 
     //public string itemName { get; set; }
@@ -36,6 +38,15 @@ public abstract class Item : MonoBehaviour
         GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = this.itemName;
         gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 30);
 
+        if(infoBubble == null)
+        {
+            infoBubble = ChatBubble.Create(transform.transform, Camera.main.transform.forward * -1, this.itemName);
+        }
+        else
+        {
+            infoBubble.LookAt(Camera.main.transform);
+            infoBubble.localPosition = Camera.main.transform.forward * -1;
+        }
 
     }
 
@@ -44,6 +55,11 @@ public abstract class Item : MonoBehaviour
         // TODO this works for now but change this later
         GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = "";
         gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 0);
+
+        if(infoBubble != null)
+        {
+            Destroy(infoBubble.gameObject);
+        }
     }
 
     public virtual void pickUp()
