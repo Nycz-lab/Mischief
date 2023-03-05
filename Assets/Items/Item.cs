@@ -28,15 +28,6 @@ public abstract class Item : MonoBehaviour
 
     public virtual void showInfo()
     {
-        //    if (gameObject.GetComponent<TextMesh>() != null) return;
-        //    TextMesh tm = gameObject.AddComponent<TextMesh>();
-        //    tm.text = this.itemName;
-
-        //    tm.color = Color.white;
-
-        // TODO this works for now but change this later
-        GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = this.itemName;
-        gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 30);
 
         if(infoBubble == null)
         {
@@ -52,9 +43,6 @@ public abstract class Item : MonoBehaviour
 
     public virtual void hideInfo()
     {
-        // TODO this works for now but change this later
-        GameObject.Find("ItemDescription").GetComponent<TextMeshProUGUI>().text = "";
-        gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 0);
 
         if(infoBubble != null)
         {
