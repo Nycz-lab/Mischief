@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour, IInteractable
 {
 
     public string itemName;
@@ -54,7 +54,9 @@ public abstract class Item : MonoBehaviour
 
     public virtual void hideInfo()
     {
-        gameObject.GetComponent<Renderer>().material.SetFloat("_Outline_Width", 0);
+        Renderer r;
+        if(gameObject.TryGetComponent<Renderer>(out r)) r.material.SetFloat("_Outline_Width", 0);
+
 
         if (infoBubble != null)
         {
@@ -62,7 +64,7 @@ public abstract class Item : MonoBehaviour
         }
     }
 
-    public virtual void pickUp()
+    public virtual void Interact()
     {
         gameObject.SetActive(false);
     }
