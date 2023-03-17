@@ -14,7 +14,7 @@ public class InventorySystem : MonoBehaviour
     public int selectionIndex = 0;
 
     public float interactionDistance = 2.0f;    // distance for interacting
-    private Item focussedItem;
+    private IInteractable focussedInteraction;
 
     public int maxItems = 30;
 
@@ -101,24 +101,24 @@ public class InventorySystem : MonoBehaviour
         
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance))
         {
-            focussedItem = hit.collider.GetComponent<Item>();
+            focussedInteraction = hit.collider.GetComponent<IInteractable>();
 
-            if (focussedItem != null)
+            if (focussedInteraction != null)
             {
-                //Debug.Log("Looking at Item " + focussedItem.itemName);
-                focussedItem.showInfo();
+                //Debug.Log("Looking at Item " + focussedInteraction.itemName);
+                focussedInteraction.showInfo();
 
                 if (_input.interact)
                 {
                     inventory.Add(hit.collider.gameObject);
-                    if(focussedItem is Equipable)
+                    if(focussedInteraction is Equipable)
                     {
-                        Equipable focussedItem = hit.collider.GetComponent<Equipable>();
-                        focussedItem.pickUp(equipSocket.transform);
+                        Equipable focussedInteraction = hit.collider.GetComponent<Equipable>();
+                        focussedInteraction.pickUp(equipSocket.transform);
                     }
                     else
                     {
-                        focussedItem.pickUp();
+                        focussedInteraction.Interact();
                     }
                     
 
@@ -130,7 +130,7 @@ public class InventorySystem : MonoBehaviour
         }
         else
         {
-            if (focussedItem != null) focussedItem.hideInfo();
+            if (focussedInteraction != null) focussedInteraction.hideInfo();
         }
         _input.interact = false;
     }
