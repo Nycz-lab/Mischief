@@ -206,7 +206,7 @@ public class wfcSpawner : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
-                cellGrid[i, j] = new cell(new Vector3(transform.position.x + (i * cellSize), 0, transform.position.z + (j * cellSize)));
+                cellGrid[i, j] = new cell(new Vector3(transform.position.x + (i * cellSize), transform.position.y, transform.position.z + (j * cellSize)));
             }
         }
         
