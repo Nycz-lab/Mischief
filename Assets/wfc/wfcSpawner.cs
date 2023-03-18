@@ -39,7 +39,7 @@ public class wfcSpawner : MonoBehaviour
 
     public int seed = 0;
 
-    public float speed = 1;
+    public float seconds = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,7 +64,15 @@ public class wfcSpawner : MonoBehaviour
         createGrid();
         try
         {
-            collapseLoop();
+            if(seconds != 0)
+            {
+                StartCoroutine(collapseLoopSeconds());
+            }
+            else
+            {
+
+                collapseLoop();
+            }
         }catch(impossibleLevelException e)
         {
             Debug.Log("Encountered impossible level design, trying again...");
@@ -78,8 +86,21 @@ public class wfcSpawner : MonoBehaviour
         cell[] lEC = getCellsWithLowestEntropy();
         while (collapseRandomCellInArray(lEC))
         {
-            //Debug.Log(lEC.Length);
             lEC = getCellsWithLowestEntropy();
+
+        }
+    }
+
+    public IEnumerator collapseLoopSeconds()
+    {
+
+        cell[] lEC = getCellsWithLowestEntropy();
+        Debug.Log("Found " + lEC.Length + " cells with entropy of " + lEC[0].superposition.Length);
+        while (collapseRandomCellInArray(lEC))
+        {
+            lEC = getCellsWithLowestEntropy();
+            Debug.Log("Found " + lEC.Length + " cells with entropy of " + lEC[0].superposition.Length);
+            yield return new WaitForSeconds(seconds);
 
         }
     }
