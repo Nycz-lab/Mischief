@@ -52,7 +52,7 @@ MonoBehaviour:
   down:
   - {fileID: 1270163808965723026, guid: eec150cd382b0a74ab4af60ccb95f128, type: 3}
   left:
-  - {fileID: 1270163808965723026, guid: dd5272754fe917b49a5a439850b478cf, type: 3}
+  - {fileID: 1270163808965723026, guid: 571cc6d7dca1e6c4d9c82c74e234bdc2, type: 3}
   right:
   - {fileID: 7055947379148421350, guid: 461365e2f2715624a83569667f4c3e51, type: 3}
 --- !u!1 &2865342266731635445
