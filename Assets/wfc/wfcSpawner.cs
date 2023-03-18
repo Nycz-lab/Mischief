@@ -41,6 +41,9 @@ public class wfcSpawner : MonoBehaviour
 
     public float seconds = 0;
 
+    public bool farPropagation = true;
+    public int max_depth = 3;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -99,7 +102,7 @@ public class wfcSpawner : MonoBehaviour
         while (collapseRandomCellInArray(lEC))
         {
             lEC = getCellsWithLowestEntropy();
-            Debug.Log("Found " + lEC.Length + " cells with entropy of " + lEC[0].superposition.Length);
+            if(lEC.Length > 0) Debug.Log("Found " + lEC.Length + " cells with entropy of " + lEC[0].superposition.Length);
             yield return new WaitForSeconds(seconds);
 
         }
@@ -111,13 +114,140 @@ public class wfcSpawner : MonoBehaviour
         if (cellArr.Length <= 0) return false;
         cell c = cellArr[Random.Range(0, cellArr.Length)];
         cellConstraints cConstraints = c.collapse();
-        propogateChanges(c, cConstraints);
+        propagateChanges(c, cConstraints);
         return true;
 
         
     }
 
-    public void propogateChanges(cell c, cellConstraints cConstraints)
+    public void oldpropagateChanges(cell c) // causes stackOverflow
+    {
+        cellPos pos = indexOf(c);
+        Debug.Log(pos);
+
+        if (pos.y + 1 < cellGrid.GetLength(1))  // another cell on the top
+        {
+            cell top = cellGrid[pos.x, pos.y + 1];
+            oldpropagateChanges(top);
+        }
+
+        if (pos.y - 1 >= 0)   // another cell on the down
+        {
+            cell down = cellGrid[pos.x, pos.y - 1];
+            oldpropagateChanges(down);
+        }
+
+        if (pos.x - 1 >= 0)   // another cell on the left
+        {
+            cell left = cellGrid[pos.x - 1, pos.y];
+            oldpropagateChanges(left);
+        }
+
+        if (pos.x + 1 < cellGrid.GetLength(0)) // another cell on the right
+        {
+            cell right = cellGrid[pos.x + 1, pos.y];
+            oldpropagateChanges(right);
+        }
+    }
+
+
+    public void propagateChanges(cell c, int max_depth)
+    {
+        Queue<cell> queue = new Queue<cell>();
+        bool[,] visited = new bool[cellGrid.GetLength(0), cellGrid.GetLength(1)];
+
+        queue.Enqueue(c);
+
+        while (queue.Count > 0)
+        {
+            cell current = queue.Dequeue();
+            cellPos pos = indexOf(current);
+            visited[pos.x, pos.y] = true;
+            //Debug.Log(pos);
+
+            if (pos.y + 1 < cellGrid.GetLength(1) && queue.Count < max_depth)  // another cell on the top
+            {
+                cell top = cellGrid[pos.x, pos.y + 1];
+                if(!visited[pos.x, pos.y + 1] && !top.collapsed)
+                {
+                    HashSet<GameObject> superPos = new HashSet<GameObject>();
+                    foreach (var cellPos in current.superposition)
+                    {
+                        foreach(var posi in cellPos.GetComponent<constraints>().top)
+                        {
+                            superPos.Add(posi);
+                        }
+                    }
+
+                    //top.superposition = superPos.ToArray();
+                    collapseDirection(top, superPos.ToArray());
+                    queue.Enqueue(top);
+                }
+            }
+
+            if (pos.y - 1 >= 0 && queue.Count < max_depth)   // another cell on the down
+            {
+                cell down = cellGrid[pos.x, pos.y - 1];
+                if (!visited[pos.x, pos.y - 1] && !down.collapsed)
+                {
+                    HashSet<GameObject> superPos = new HashSet<GameObject>();
+                    foreach (var cellPos in current.superposition)
+                    {
+                        foreach (var posi in cellPos.GetComponent<constraints>().down)
+                        {
+                            superPos.Add(posi);
+                        }
+                    }
+
+                    //down.superposition = superPos.ToArray();
+                    collapseDirection(down, superPos.ToArray());
+                    queue.Enqueue(down);
+                }
+            }
+
+            if (pos.x - 1 >= 0 && queue.Count < max_depth)   // another cell on the left
+            {
+                cell left = cellGrid[pos.x - 1, pos.y];
+                if (!visited[pos.x -1, pos.y] && !left.collapsed)
+                {
+                    HashSet<GameObject> superPos = new HashSet<GameObject>();
+                    foreach (var cellPos in current.superposition)
+                    {
+                        foreach (var posi in cellPos.GetComponent<constraints>().left)
+                        {
+                            superPos.Add(posi);
+                        }
+                    }
+
+                    //left.superposition = superPos.ToArray();
+                    collapseDirection(left, superPos.ToArray());
+                    queue.Enqueue(left);
+                }
+            }
+
+            if (pos.x + 1 < cellGrid.GetLength(0) && queue.Count < max_depth) // another cell on the right
+            {
+                cell right = cellGrid[pos.x + 1, pos.y];
+                if (!visited[pos.x + 1, pos.y] && !right.collapsed)
+                {
+                    HashSet<GameObject> superPos = new HashSet<GameObject>();
+                    foreach (var cellPos in current.superposition)
+                    {
+                        foreach (var posi in cellPos.GetComponent<constraints>().right)
+                        {
+                            superPos.Add(posi);
+                        }
+                    }
+
+                    //right.superposition = superPos.ToArray();
+                    collapseDirection(right, superPos.ToArray());
+                    queue.Enqueue(right);
+                }
+            }
+        }
+    }
+
+    public void propagateChanges(cell c, cellConstraints cConstraints)
     {
         // loop through all array constraints and delete them from the cells that are next to the current one if that cell exists
         // delete everything thats NOT in the list
@@ -127,17 +257,11 @@ public class wfcSpawner : MonoBehaviour
         if(pos.y + 1 < cellGrid.GetLength(1))  // another cell on the top
         {
             cell top = cellGrid[pos.x, pos.y +1];
-
-
-
             if (!top.collapsed)
             {
-                List<GameObject> listA = new List<GameObject>(top.superposition);
-                List<GameObject> listB = new List<GameObject>(cConstraints.top);
-
-                List<GameObject> remainingPositions = listA.Intersect(listB).ToList();
-
-                top.superposition = remainingPositions.ToArray();
+                collapseDirection(top, cConstraints.top);
+                
+                if(farPropagation) propagateChanges(top, max_depth);
             }
         }
 
@@ -146,12 +270,8 @@ public class wfcSpawner : MonoBehaviour
             cell down = cellGrid[pos.x, pos.y-1];
             if (!down.collapsed)
             {
-                List<GameObject> listA = new List<GameObject>(down.superposition);
-                List<GameObject> listB = new List<GameObject>(cConstraints.down);
-
-                List<GameObject> remainingPositions = listA.Intersect(listB).ToList();
-
-                down.superposition = remainingPositions.ToArray();
+                collapseDirection(down, cConstraints.down);
+                if (farPropagation) propagateChanges(down, max_depth);
             }
         }
 
@@ -160,12 +280,8 @@ public class wfcSpawner : MonoBehaviour
             cell left = cellGrid[pos.x-1, pos.y];
             if (!left.collapsed)
             {
-                List<GameObject> listA = new List<GameObject>(left.superposition);
-                List<GameObject> listB = new List<GameObject>(cConstraints.left);
-
-                List<GameObject> remainingPositions = listA.Intersect(listB).ToList();
-
-                left.superposition = remainingPositions.ToArray();
+                collapseDirection(left, cConstraints.left);
+                if (farPropagation) propagateChanges(left, max_depth);
             }
         }
 
@@ -174,16 +290,23 @@ public class wfcSpawner : MonoBehaviour
             cell right = cellGrid[pos.x+1, pos.y];
             if (!right.collapsed)
             {
-                List<GameObject> listA = new List<GameObject>(right.superposition);
-                List<GameObject> listB = new List<GameObject>(cConstraints.right);
-
-                List<GameObject> remainingPositions = listA.Intersect(listB).ToList();
-
-                right.superposition = remainingPositions.ToArray();
+                collapseDirection(right, cConstraints.right);
+                if (farPropagation) propagateChanges(right, max_depth);
             }
         }
 
 
+
+    }
+
+    public void collapseDirection(cell c, GameObject[] direction)
+    {
+        List<GameObject> listA = new List<GameObject>(c.superposition);
+        List<GameObject> listB = new List<GameObject>(direction);
+
+        List<GameObject> remainingPositions = listA.Intersect(listB).ToList();
+
+        c.superposition = remainingPositions.ToArray();
     }
 
     public cellPos indexOf(cell c)
