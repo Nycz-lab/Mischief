@@ -44,7 +44,9 @@ public class wfcSpawner : MonoBehaviour
     public bool farPropagation = true;
     public int max_depth = 3;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// this calls the wfc function after setting the seed
+    /// </summary>
     void Awake()
     {
         if(seed != 0)
@@ -59,9 +61,12 @@ public class wfcSpawner : MonoBehaviour
         Debug.Log("Current Seed is " + seed);
 
         wfc();
-        
     }
 
+    /// <summary>
+    /// main function to start the logic
+    /// upon a map failure event (impossibleLevel) this restarts the map generation
+    /// </summary>
     public void wfc()
     {
         createGrid();
@@ -84,6 +89,9 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function starts the collapse of all cells in the map
+    /// </summary>
     public void collapseLoop()
     {
         cell[] lEC = getCellsWithLowestEntropy();
@@ -94,6 +102,10 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Use this to generate the map slowly to visualize it
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator collapseLoopSeconds()
     {
 
@@ -108,6 +120,13 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// This function randomly collapses a cell within a given array
+    /// </summary>
+    /// <param name="cellArr"> The array of which a cell is randomly collapsed
+    /// (most commonly this is from an array of low entropy cells) </param>
+    /// <returns>returns true if there are cells to collapse and false if all cells have been collapsed</returns>
     public bool collapseRandomCellInArray(cell[] cellArr)
     {
 
@@ -150,9 +169,15 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// this propagates the cells in advance so that their state becomes more deterministic
+    /// this helps create logic levels with less failures but is incredibly performance intensive the more depth is added
+    /// </summary>
+    /// <param name="c"></param>
+    /// <param name="max_depth"></param>
     public void propagateChanges(cell c, int max_depth)
     {
+
         Queue<cell> queue = new Queue<cell>();
         bool[,] visited = new bool[cellGrid.GetLength(0), cellGrid.GetLength(1)];
 
@@ -247,6 +272,11 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// this is the propagation function for direct neighbours of the cell
+    /// </summary>
+    /// <param name="c"></param>
+    /// <param name="cConstraints"></param>
     public void propagateChanges(cell c, cellConstraints cConstraints)
     {
         // loop through all array constraints and delete them from the cells that are next to the current one if that cell exists
@@ -299,6 +329,11 @@ public class wfcSpawner : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// helper function to set the left logical superpositions based on the intersect of both cells superpositions
+    /// </summary>
+    /// <param name="c"></param>
+    /// <param name="direction"></param>
     public void collapseDirection(cell c, GameObject[] direction)
     {
         List<GameObject> listA = new List<GameObject>(c.superposition);
@@ -309,6 +344,11 @@ public class wfcSpawner : MonoBehaviour
         c.superposition = remainingPositions.ToArray();
     }
 
+    /// <summary>
+    /// helper function to find a cell in the 2d grid array
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
     public cellPos indexOf(cell c)
     {
         int w = cellGrid.GetLength(0); // width
@@ -326,6 +366,9 @@ public class wfcSpawner : MonoBehaviour
         return new cellPos(-1, -1);
     }
 
+    /// <summary>
+    /// remove all cells from the game world (used to regenerate the map for example)
+    /// </summary>
     public void removeAllCells()
     {
         GameObject[] toDestroy = GameObject.FindGameObjectsWithTag("wfcObj");
@@ -335,6 +378,9 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// helper function to get random unlogical maps
+    /// </summary>
     public void collapseAllCells()
     {
         foreach(var cell in cellGrid)
@@ -343,6 +389,9 @@ public class wfcSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// create the cell grid through this helper function
+    /// </summary>
     public void createGrid()
     {
         cellGrid = new cell[size, size];
@@ -356,8 +405,10 @@ public class wfcSpawner : MonoBehaviour
         
     }
 
-    /*  Returns an Array of uncollapsed Cells with the lowest Entropy
-     */
+    /// <summary>
+    /// Returns an Array of uncollapsed Cells with the lowest Entropy
+    /// </summary>
+    /// <returns></returns>
     public cell[] getCellsWithLowestEntropy()
     {
         int entropy = -1;
@@ -381,9 +432,4 @@ public class wfcSpawner : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
