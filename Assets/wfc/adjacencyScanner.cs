@@ -102,24 +102,28 @@ public class adjacencyScanner
         Collider[] colliderArr = Physics.OverlapSphere(obj.transform.position + Vector3.forward * space, space / 2);
         foreach(var collider in colliderArr)
         {
+            if (collider.tag != "wfcObj") continue;
             top.Add(rules[addIfNotExist(collider.gameObject)].obj);
         }
         //  down
         colliderArr = Physics.OverlapSphere(obj.transform.position + Vector3.back * space, space / 2);
         foreach (var collider in colliderArr)
         {
+            if (collider.tag != "wfcObj") continue;
             down.Add(rules[addIfNotExist(collider.gameObject)].obj);
         }
         //  left
         colliderArr = Physics.OverlapSphere(obj.transform.position + Vector3.left * space, space / 2);
         foreach (var collider in colliderArr)
         {
+            if (collider.tag != "wfcObj") continue;
             left.Add(rules[addIfNotExist(collider.gameObject)].obj);
         }
         //  right
         colliderArr = Physics.OverlapSphere(obj.transform.position + Vector3.right * space, space / 2);
         foreach (var collider in colliderArr)
         {
+            if (collider.tag != "wfcObj") continue;
             right.Add(rules[addIfNotExist(collider.gameObject)].obj);
         }
 

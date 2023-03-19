@@ -418,7 +418,7 @@ public class wfcSpawner : MonoBehaviour
     public void createGrid()
     {
         
-        GameObject[] superpositions = adjScanner.getSuperpositions();
+        GameObject[] superpositions = adjScanner.getSuperpositions();   // get all possible superpositions here to pass them to each cell upon initialization
         cellGrid = new cell[size, size];
         for(int i = 0; i < size; i++)
         {
