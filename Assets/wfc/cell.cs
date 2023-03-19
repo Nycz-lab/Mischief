@@ -26,16 +26,17 @@ public class cell
     public bool collapsed = false;
     Vector3 pos;
 
-    public cell(Vector3 pos)
+    public cell(Vector3 pos, GameObject[] superposition)
     {
         this.pos = pos;
-        loadPrefabs();
-        //Debug.Log("I am " + superposition[0].name + ", I am at " + pos);
+        this.superposition = superposition;
+        //loadPrefabs();
     }
 
     private void loadPrefabs()
     {
-        superposition = Resources.LoadAll<GameObject>("wfcPrefabs");
+        //superposition = Resources.LoadAll<GameObject>("wfcPrefabs");
+        
     }
 
     public cellConstraints collapse()

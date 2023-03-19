@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public struct cellPos
 {
     public int x;
@@ -35,6 +34,8 @@ public class wfcSpawner : MonoBehaviour
 
     public int cellSize = 15;
 
+    public int scanSize = 15;
+
     cell[,] cellGrid;
 
     public int seed = 0;
@@ -43,6 +44,10 @@ public class wfcSpawner : MonoBehaviour
 
     public bool farPropagation = true;
     public int max_depth = 3;
+
+    private float collapsedCells = 0;
+
+    private adjacencyScanner adjScanner;
 
     /// <summary>
     /// this calls the wfc function after setting the seed
@@ -60,6 +65,7 @@ public class wfcSpawner : MonoBehaviour
         }
         Debug.Log("Current Seed is " + seed);
 
+
         wfc();
     }
 
@@ -69,19 +75,22 @@ public class wfcSpawner : MonoBehaviour
     /// </summary>
     public void wfc()
     {
+        adjScanner = new adjacencyScanner(scanSize);
         createGrid();
         try
         {
-            if(seconds != 0)
+            if (seconds != 0)
             {
                 StartCoroutine(collapseLoopSeconds());
             }
             else
             {
 
+                //StartCoroutine(collapseLoopAsync());
                 collapseLoop();
             }
-        }catch(impossibleLevelException e)
+        }
+        catch (impossibleLevelException e)
         {
             Debug.Log("Encountered impossible level design, trying again...");
             removeAllCells();
@@ -99,6 +108,20 @@ public class wfcSpawner : MonoBehaviour
         {
             lEC = getCellsWithLowestEntropy();
 
+        }
+    }
+
+    /// <summary>
+    /// This coroutine starts the collapse of all cells in the map without blocking the thread
+    /// </summary>
+    public IEnumerator collapseLoopAsync()
+    {
+        cell[] lEC = getCellsWithLowestEntropy();
+        while (collapseRandomCellInArray(lEC))
+        {
+            lEC = getCellsWithLowestEntropy();
+            Debug.Log(string.Format("{0}%" , (collapsedCells / cellGrid.Length) * 100 ) );
+            yield return null;
         }
     }
 
@@ -129,10 +152,10 @@ public class wfcSpawner : MonoBehaviour
     /// <returns>returns true if there are cells to collapse and false if all cells have been collapsed</returns>
     public bool collapseRandomCellInArray(cell[] cellArr)
     {
-
         if (cellArr.Length <= 0) return false;
         cell c = cellArr[Random.Range(0, cellArr.Length)];
         cellConstraints cConstraints = c.collapse();
+        collapsedCells++;
         propagateChanges(c, cConstraints);
         return true;
 
@@ -394,12 +417,15 @@ public class wfcSpawner : MonoBehaviour
     /// </summary>
     public void createGrid()
     {
+        
+        GameObject[] superpositions = adjScanner.getSuperpositions();
         cellGrid = new cell[size, size];
         for(int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                cellGrid[i, j] = new cell(new Vector3(transform.position.x + (i * cellSize), transform.position.y, transform.position.z + (j * cellSize)));
+                cellGrid[i, j] = new cell(new Vector3(transform.position.x + (i * cellSize), transform.position.y, transform.position.z + (j * cellSize)),
+                    superpositions);
             }
         }
         
@@ -429,7 +455,6 @@ public class wfcSpawner : MonoBehaviour
         }
 
         return lowEntropyCells.ToArray();
-
     }
 
 }

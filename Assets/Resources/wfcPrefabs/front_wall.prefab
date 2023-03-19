@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2267026410212515010}
-  - component: {fileID: -5726134121142530831}
-  m_Layer: 0
+  - component: {fileID: 6785020376080456000}
+  m_Layer: 6
   m_Name: front_wall
   m_TagString: wfcObj
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5726134121142530831
+--- !u!114 &6785020376080456000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,19 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1270163808965723026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026261f060da6394490319a78db2d76f, type: 3}
+  m_Script: {fileID: 11500000, guid: 045cabee56469ef48a15d62dcf92e397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top:
-  - {fileID: 1270163808965723026, guid: ef6361e4210177446a210999ec47d9b3, type: 3}
-  down:
-  - {fileID: 7055947379148421350, guid: 461365e2f2715624a83569667f4c3e51, type: 3}
-  left:
-  - {fileID: 1270163808965723026}
-  - {fileID: 1270163808965723026, guid: 8c11168107339174aa247cf19bf3c80e, type: 3}
-  right:
-  - {fileID: 1270163808965723026}
-  - {fileID: 1270163808965723026, guid: 3f6b99313f125df45842cb10011fec62, type: 3}
+  tileId: front_wall
+  selfNeighbour: 1
+  omniOrientation: 1
 --- !u!1 &3382272758611048171
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +61,7 @@ GameObject:
   - component: {fileID: 8767794762342079889}
   - component: {fileID: 1768496045540282299}
   - component: {fileID: 510307016142913121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +158,7 @@ GameObject:
   - component: {fileID: 8215900800908421658}
   - component: {fileID: 6172619861026105953}
   - component: {fileID: 1358347281210791772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

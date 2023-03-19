@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3550980141813983526}
   - component: {fileID: 7145528538015708469}
   - component: {fileID: 5580129342680881731}
-  - component: {fileID: 7305044609565593704}
-  m_Layer: 0
+  - component: {fileID: 6296818830050678851}
+  m_Layer: 6
   m_Name: water
   m_TagString: wfcObj
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7055947379148421350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 1, z: 15}
+  m_LocalScale: {x: 15, y: 0.4, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7305044609565593704
+--- !u!114 &6296818830050678851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,18 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7055947379148421350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026261f060da6394490319a78db2d76f, type: 3}
+  m_Script: {fileID: 11500000, guid: 045cabee56469ef48a15d62dcf92e397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top:
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 7055947379148421350}
-  down:
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 7055947379148421350}
-  left:
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 7055947379148421350}
-  right:
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 7055947379148421350}
+  tileId: water

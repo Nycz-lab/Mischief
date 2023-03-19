@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3550980141813983526}
   - component: {fileID: 7145528538015708469}
   - component: {fileID: 5580129342680881731}
-  - component: {fileID: 7305044609565593704}
-  m_Layer: 0
+  - component: {fileID: 5973384386254639565}
+  m_Layer: 6
   m_Name: ground
   m_TagString: wfcObj
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7305044609565593704
+--- !u!114 &5973384386254639565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,30 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7055947379148421350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026261f060da6394490319a78db2d76f, type: 3}
+  m_Script: {fileID: 11500000, guid: 045cabee56469ef48a15d62dcf92e397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top:
-  - {fileID: 7055947379148421350}
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 1270163808965723026, guid: dd5272754fe917b49a5a439850b478cf, type: 3}
-  - {fileID: 1270163808965723026, guid: 8c11168107339174aa247cf19bf3c80e, type: 3}
-  - {fileID: 1270163808965723026, guid: 3f6b99313f125df45842cb10011fec62, type: 3}
-  down:
-  - {fileID: 7055947379148421350}
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 1270163808965723026, guid: 571cc6d7dca1e6c4d9c82c74e234bdc2, type: 3}
-  - {fileID: 1270163808965723026, guid: 53f1b6d0854ac634c8144ee9d0bf2f8e, type: 3}
-  - {fileID: 1270163808965723026, guid: 79ed5dd460f0a6844bca756943329c9b, type: 3}
-  left:
-  - {fileID: 7055947379148421350}
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 1270163808965723026, guid: eec150cd382b0a74ab4af60ccb95f128, type: 3}
-  - {fileID: 1270163808965723026, guid: 3f6b99313f125df45842cb10011fec62, type: 3}
-  - {fileID: 1270163808965723026, guid: 79ed5dd460f0a6844bca756943329c9b, type: 3}
-  right:
-  - {fileID: 7055947379148421350}
-  - {fileID: 7055947379148421350, guid: 067846019e26341138b7f7598ceb7263, type: 3}
-  - {fileID: 1270163808965723026, guid: db547efd872fc2e4ba2f86f5c1a44ffb, type: 3}
-  - {fileID: 1270163808965723026, guid: 8c11168107339174aa247cf19bf3c80e, type: 3}
-  - {fileID: 1270163808965723026, guid: 53f1b6d0854ac634c8144ee9d0bf2f8e, type: 3}
+  tileId: ground
