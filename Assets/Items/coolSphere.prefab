@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3923304652029414014}
   - component: {fileID: 3923304652029414015}
   - component: {fileID: 3923304652029414012}
-  - component: {fileID: 3923304652029414013}
+  - component: {fileID: 5828449339784031616}
   m_Layer: 0
   m_Name: coolSphere
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3923304652029414013
+--- !u!114 &5828449339784031616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,10 +124,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3923304652029414018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce33313bd93ba4c4d9a4a9dc9d1aaa10, type: 3}
+  m_Script: {fileID: 11500000, guid: b833a8b3f0774624dacd7dd2c1d5ec3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
   itemPrice: 0
   itemIcon: {fileID: 0}
   maxStack: 0
+  inInventory: 0

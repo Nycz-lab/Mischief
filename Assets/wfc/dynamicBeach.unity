@@ -3819,10 +3819,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4444534134113452836, guid: ecce87bc54b004488b25594bf745e890, type: 3}
       propertyPath: size
-      value: 64
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 4444534134113452836, guid: ecce87bc54b004488b25594bf745e890, type: 3}
       propertyPath: seconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444534134113452836, guid: ecce87bc54b004488b25594bf745e890, type: 3}
+      propertyPath: asyncGen
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4444534134113452836, guid: ecce87bc54b004488b25594bf745e890, type: 3}
