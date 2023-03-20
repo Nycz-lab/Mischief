@@ -111,3 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileId: sand
+  selfNeighbour: 1
+  omniOrientation: 1
+  weight: 1
+  spawnTile: 0

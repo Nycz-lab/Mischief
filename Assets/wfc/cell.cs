@@ -25,10 +25,14 @@ public class cell
     public GameObject[] superposition;
     public bool collapsed = false;
     Vector3 pos;
+    public cellPos gridPos;
 
-    public cell(Vector3 pos, GameObject[] superposition)
+    public GameObject finalPosition;
+
+    public cell(Vector3 pos, cellPos gridPos, GameObject[] superposition)
     {
         this.pos = pos;
+        this.gridPos = gridPos;
         this.superposition = superposition;
         //loadPrefabs();
     }
@@ -39,16 +43,48 @@ public class cell
         
     }
 
-    public cellConstraints collapse()
+    private GameObject[] genWeights()
+    {
+        List<GameObject> tempList = new List<GameObject>(superposition);
+        foreach(var pos in superposition)
+        {
+            for(int i = 0; i < pos.GetComponent<wfc_tile>().weight; i++)
+            {
+                tempList.Add(pos);
+            }
+        }
+        return tempList.ToArray();
+    }
+
+    public void collapse()
     {
         collapsed = true;
         if (superposition.Length <= 0) throw new impossibleLevelException();
-        GameObject position = superposition[Random.Range(0, superposition.Length)];
-        Object.Instantiate(position, pos, Quaternion.identity);
+        var weightedSuperposition = genWeights();
+        GameObject position = weightedSuperposition[Random.Range(0, weightedSuperposition.Length)];
+        //GameObject position = superposition[Random.Range(0, superposition.Length)];
+        Object.Instantiate(position, pos, Quaternion.identity).SetActive(true);
         superposition = new GameObject[0];
+        finalPosition = position;
 
-        return getCellConstraints(position);
 
+    }
+
+    public void collapseSpawn()
+    {
+        collapsed = true;
+        foreach(var supo in superposition)
+        {
+            if (supo.GetComponent<wfc_tile>().spawnTile)
+            {
+                GameObject position = supo;
+                Object.Instantiate(position, pos, Quaternion.identity).SetActive(true);
+                superposition = new GameObject[0];
+                finalPosition = position;
+                return;
+            }
+        }
+        collapse();
     }
 
     public cellConstraints getCellConstraints(GameObject cellObj)

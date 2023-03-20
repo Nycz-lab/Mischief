@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2267026410212515010}
-  - component: {fileID: -5726134121142530831}
+  - component: {fileID: 7121465272064336891}
+  - component: {fileID: 2444599116178892044}
   m_Layer: 6
   m_Name: right_wall
   m_TagString: wfcObj
@@ -34,7 +35,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5726134121142530831
+--- !u!65 &7121465272064336891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270163808965723026}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15, y: 15, z: 15}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2444599116178892044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,19 +57,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1270163808965723026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026261f060da6394490319a78db2d76f, type: 3}
+  m_Script: {fileID: 11500000, guid: 045cabee56469ef48a15d62dcf92e397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top:
-  - {fileID: 1270163808965723026}
-  - {fileID: 1270163808965723026, guid: 79ed5dd460f0a6844bca756943329c9b, type: 3}
-  down:
-  - {fileID: 1270163808965723026}
-  - {fileID: 1270163808965723026, guid: 3f6b99313f125df45842cb10011fec62, type: 3}
-  left:
-  - {fileID: 1270163808965723026, guid: ef6361e4210177446a210999ec47d9b3, type: 3}
-  right:
-  - {fileID: 7055947379148421350, guid: 461365e2f2715624a83569667f4c3e51, type: 3}
+  tileId: right_wall
+  selfNeighbour: 0
+  omniOrientation: 0
+  weight: 0
+  spawnTile: 0
 --- !u!1 &3382272758611048171
 GameObject:
   m_ObjectHideFlags: 0

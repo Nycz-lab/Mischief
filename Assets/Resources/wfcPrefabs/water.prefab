@@ -111,3 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileId: water
+  selfNeighbour: 1
+  omniOrientation: 1
+  weight: 0
+  spawnTile: 0

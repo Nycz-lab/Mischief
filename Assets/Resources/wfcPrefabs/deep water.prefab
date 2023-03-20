@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5580129342680881731}
   - component: {fileID: 6296818830050678851}
   m_Layer: 6
-  m_Name: stone
+  m_Name: deep water
   m_TagString: wfcObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ea146dfd08767b4791c74c694bc9a84, type: 2}
+  - {fileID: 2100000, guid: 17a9fcf7d7e4a45d5a486f3e1db5959f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045cabee56469ef48a15d62dcf92e397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileId: stone
-  selfNeighbour: 0
-  omniOrientation: 0
+  tileId: deep_water
+  selfNeighbour: 1
+  omniOrientation: 1
   weight: 0
+  spawnTile: 0

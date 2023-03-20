@@ -179,7 +179,12 @@ public class adjacencyScanner
         }
 
         Debug.Log(string.Join(", ", rules.Keys));
-        
+
+        foreach (GameObject obj in sceneObj)
+        {
+            obj.SetActive(false);
+        }
+
         return tileSet.ToArray();
     }
 
